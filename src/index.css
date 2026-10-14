@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* keep anchor targets clear of the fixed navbar */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-ink-900 font-sans text-slate-300 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-white;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
+  }
+
+  /* Visible, consistent focus ring for keyboard users */
+  *:focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Components / utilities                                             */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Horizontal rhythm shared by every section */
+  .container-x {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-pad {
+    @apply py-20 md:py-28;
+  }
+
+  /* Small uppercase label with a blue "/" in front - "/ ABOUT ME" */
+  .section-label {
+    @apply mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-400;
+  }
+
+  .section-label .slash {
+    @apply font-semibold text-accent;
+  }
+
+  /* Big section heading */
+  .heading-xl {
+    @apply text-3xl font-semibold leading-[1.15] sm:text-4xl lg:text-[2.75rem];
+  }
+
+  /* Rounded dark card */
+  .card {
+    @apply rounded-2xl border border-white/10 bg-ink-700/60 transition-all duration-300;
+  }
+
+  /* Underlined "LEARN MORE ->" style link (the `group` class is added in markup,
+     since Tailwind's group utility cannot be used inside @apply) */
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:text-accent-400;
+  }
+
+  .link-arrow .link-arrow__text {
+    @apply border-b border-white/30 pb-1 transition-colors duration-200 group-hover:border-accent-400;
+  }
+
+  .link-arrow svg {
+    @apply h-4 w-4 transition-transform duration-200 group-hover:translate-x-1;
+  }
+
+  /* Fade-in-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Extras                                                             */
+/* ------------------------------------------------------------------ */
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0f1720;
+}
+::-webkit-scrollbar-thumb {
+  background: #222c3d;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c384c;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
