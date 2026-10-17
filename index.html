@@ -16,6 +16,25 @@
       rel="stylesheet"
     />
     <title>Anouar Laraje | Full-Stack Web Developer</title>
+    <script>
+      // Apply the saved theme before the first paint so the page never flashes.
+      (function () {
+        var key = 'anouar-portfolio-theme';
+        var theme = null;
+        try {
+          theme = window.localStorage.getItem(key);
+        } catch (e) {
+          /* storage unavailable (private mode) - fall back to system */
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

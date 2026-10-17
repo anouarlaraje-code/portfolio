@@ -3,11 +3,50 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ */
-/*  Base                                                               */
+/*  Theme tokens                                                        */
 /* ------------------------------------------------------------------ */
+/* Colours are RGB triplets so Tailwind can still apply opacity        */
+/* modifiers (bg-surface/60, border-line/10, ...).                     */
+/* The dark palette is the default; the light palette is applied when  */
+/* the navbar switch sets html[data-theme="light"].                    */
 @layer base {
   :root {
     color-scheme: dark;
+
+    --c-bg: 15 23 32; /* #0f1720 - page */
+    --c-surface: 26 34 48; /* #1a2230 - cards, bands */
+    --c-surface-2: 20 28 39; /* #141c27 - inputs, chips, alt sections */
+    --c-line: 255 255 255; /* borders are drawn at 5-30% of this */
+    --c-heading: 255 255 255;
+    --c-body: 203 213 225; /* slate-300 */
+    --c-muted: 148 163 184; /* slate-400 */
+    --c-danger: 248 113 113; /* red-400 */
+    --c-accent: 26 99 240; /* #1a63f0 */
+    --c-accent-400: 74 134 255; /* #4a86ff */
+    --c-accent-600: 20 80 204;
+
+    --grid-line: rgba(255, 255, 255, 0.05);
+    --scroll-thumb: #222c3d;
+    --scroll-thumb-hover: #2c384c;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
+
+    --c-bg: 241 245 249; /* slate-100 */
+    --c-surface: 255 255 255; /* white cards on a grey page */
+    --c-surface-2: 226 232 240; /* slate-200 */
+    --c-line: 15 23 32;
+    --c-heading: 15 23 32;
+    --c-body: 71 85 105; /* slate-600 */
+    --c-muted: 100 116 139; /* slate-500 */
+    --c-danger: 220 38 38; /* red-600 */
+    --c-accent-400: 21 78 196; /* darker blue keeps AA contrast on white */
+    --c-accent-600: 17 66 168;
+
+    --grid-line: rgba(15, 23, 32, 0.06);
+    --scroll-thumb: #cbd5e1;
+    --scroll-thumb-hover: #94a3b8;
   }
 
   html {
@@ -17,24 +56,25 @@
   }
 
   body {
-    @apply bg-ink-900 font-sans text-slate-300 antialiased;
+    @apply bg-bg font-sans text-body antialiased;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply text-white;
+    @apply text-heading;
     letter-spacing: -0.02em;
   }
 
   ::selection {
-    @apply bg-accent text-white;
+    background-color: rgb(var(--c-accent));
+    color: #fff;
   }
 
   /* Visible, consistent focus ring for keyboard users */
   *:focus-visible {
-    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline: 2px solid rgb(var(--c-accent));
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -55,7 +95,7 @@
 
   /* Small uppercase label with a blue "/" in front - "/ ABOUT ME" */
   .section-label {
-    @apply mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-400;
+    @apply mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-muted;
   }
 
   .section-label .slash {
@@ -67,19 +107,19 @@
     @apply text-3xl font-semibold leading-[1.15] sm:text-4xl lg:text-[2.75rem];
   }
 
-  /* Rounded dark card */
+  /* Rounded card */
   .card {
-    @apply rounded-2xl border border-white/10 bg-ink-700/60 transition-all duration-300;
+    @apply rounded-2xl border border-line/10 bg-surface transition-all duration-300;
   }
 
   /* Underlined "LEARN MORE ->" style link (the `group` class is added in markup,
      since Tailwind's group utility cannot be used inside @apply) */
   .link-arrow {
-    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:text-accent-400;
+    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-heading transition-colors duration-200 hover:text-accent-400;
   }
 
   .link-arrow .link-arrow__text {
-    @apply border-b border-white/30 pb-1 transition-colors duration-200 group-hover:border-accent-400;
+    @apply border-b border-line/30 pb-1 transition-colors duration-200 group-hover:border-accent-400;
   }
 
   .link-arrow svg {
@@ -105,19 +145,19 @@
 /* ------------------------------------------------------------------ */
 /*  Extras                                                             */
 /* ------------------------------------------------------------------ */
-/* Dark scrollbar */
+/* Theme-aware scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f1720;
+  background: rgb(var(--c-bg));
 }
 ::-webkit-scrollbar-thumb {
-  background: #222c3d;
+  background: var(--scroll-thumb);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2c384c;
+  background: var(--scroll-thumb-hover);
 }
 
 /* Respect users who prefer less motion */

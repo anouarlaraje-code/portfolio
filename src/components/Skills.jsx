@@ -17,7 +17,7 @@ export default function Skills() {
             Skills
           </p>
           <h2 className="heading-xl">Technologies I work with every day</h2>
-          <p className="mt-6 text-base leading-relaxed text-slate-400 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed text-body sm:text-lg">
             From the interface down to the database - the tools I use to build complete web
             applications.
           </p>
@@ -29,7 +29,7 @@ export default function Skills() {
             const Icon = group.icon
             return (
               <Reveal key={group.id} delay={index * 90} className="h-full">
-                <article className="card h-full p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-ink-700">
+                <article className="card h-full p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-surface">
                   <span className="grid h-12 w-12 place-items-center rounded-xl bg-accent/15 text-accent-400">
                     <Icon className="h-6 w-6" aria-hidden="true" />
                   </span>
@@ -38,7 +38,7 @@ export default function Skills() {
                     {group.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-full border border-white/10 bg-ink-800/80 px-3 py-1.5 text-xs font-medium text-slate-300"
+                        className="rounded-full border border-line/10 bg-surface2/80 px-3 py-1.5 text-xs font-medium text-body"
                       >
                         {item}
                       </li>
@@ -59,14 +59,14 @@ export default function Skills() {
               </span>
               <div>
                 <h3 className="text-lg font-semibold">Languages</h3>
-                <p className="text-sm text-slate-400">Languages I speak</p>
+                <p className="text-sm text-body">Languages I speak</p>
               </div>
             </div>
             <ul className="flex flex-wrap gap-x-10 gap-y-3">
               {languages.map((language) => (
                 <li key={language.id}>
-                  <span className="font-medium text-white">{language.name}</span>
-                  <span className="ml-2 text-sm text-slate-400">({language.level})</span>
+                  <span className="font-medium text-heading">{language.name}</span>
+                  <span className="ml-2 text-sm text-body">({language.level})</span>
                 </li>
               ))}
             </ul>

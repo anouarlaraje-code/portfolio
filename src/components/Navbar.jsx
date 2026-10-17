@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, Moon, Sun, X } from 'lucide-react'
 import { navLinks } from '../data/nav'
 import { socialLinks } from '../data/personal'
 import useActiveSection from '../hooks/useActiveSection'
 import useLockBodyScroll from '../hooks/useLockBodyScroll'
+import useTheme from '../hooks/useTheme'
 
 const sectionIds = navLinks.map((link) => link.id)
 
 /**
- * Fixed top navigation: logo, anchors, hamburger menu on mobile.
+ * Fixed top navigation: logo, anchors, light/dark switch, hamburger on mobile.
  */
 export default function Navbar() {
   const [open, setOpen] = useState(false) // mobile menu
   const [scrolled, setScrolled] = useState(false) // background when the page moves
   const active = useActiveSection(sectionIds)
+  const { theme, toggle } = useTheme()
 
   useLockBodyScroll(open)
 
@@ -34,11 +36,13 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  const isDark = theme === 'dark'
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-white/10 bg-ink-900/85 backdrop-blur-xl'
+          ? 'border-b border-line/10 bg-bg/85 backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -51,7 +55,7 @@ export default function Navbar() {
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-white shadow-lg shadow-accent-glow">
             <span className="text-[13px] font-bold leading-none">&lt;/&gt;</span>
           </span>
-          <span className="text-lg font-semibold tracking-tight text-white">Anouar</span>
+          <span className="text-lg font-semibold tracking-tight text-heading">Anouar</span>
         </a>
 
         {/* Desktop links */}
@@ -62,7 +66,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={active === link.id ? 'page' : undefined}
                 className={`relative block px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                  active === link.id ? 'text-white' : 'text-slate-400 hover:text-white'
+                  active === link.id ? 'text-heading' : 'text-body hover:text-heading'
                 }`}
               >
                 {link.label}
@@ -77,24 +81,40 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Hamburger (mobile) */}
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-ink-700/70 text-white transition-colors duration-200 hover:border-accent/60 hover:text-accent-400 md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Light / dark switch + hamburger */}
+        <div className="flex items-center gap-2 md:gap-3">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-surface text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
+          >
+            {isDark ? (
+              <Sun className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Moon className="h-5 w-5" aria-hidden="true" />
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-surface text-heading transition-colors duration-200 hover:border-accent/60 hover:text-accent-400 md:hidden"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       <div
         id="mobile-menu"
         hidden={!open}
-        className="border-t border-white/10 bg-ink-900/95 backdrop-blur-xl md:hidden"
+        className="border-t border-line/10 bg-bg/95 backdrop-blur-xl md:hidden"
       >
         <ul className="container-x flex flex-col py-4">
           {navLinks.map((link) => (
@@ -103,8 +123,8 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 aria-current={active === link.id ? 'page' : undefined}
-                className={`flex items-center justify-between border-b border-white/5 py-4 text-base font-medium transition-colors duration-200 ${
-                  active === link.id ? 'text-accent-400' : 'text-slate-300 hover:text-white'
+                className={`flex items-center justify-between border-b border-line/5 py-4 text-base font-medium transition-colors duration-200 ${
+                  active === link.id ? 'text-accent-400' : 'text-body hover:text-heading'
                 }`}
               >
                 {link.label}
@@ -126,7 +146,7 @@ export default function Navbar() {
               target={external ? '_blank' : undefined}
               rel={external ? 'noreferrer noopener' : undefined}
               onClick={() => setOpen(false)}
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-slate-300 transition-colors duration-200 hover:border-accent/60 hover:text-accent-400"
+              className="grid h-10 w-10 place-items-center rounded-lg border border-line/10 text-body transition-colors duration-200 hover:border-accent/60 hover:text-accent-400"
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
             </a>

@@ -15,7 +15,7 @@ import Footer from './components/Footer'
  */
 export default function App() {
   return (
-    <div className="min-h-screen bg-ink-900">
+    <div className="min-h-screen bg-bg">
       {/* Keyboard users: skip straight to the content */}
       <a
         href="#main"

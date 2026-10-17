@@ -6,7 +6,7 @@ import { internship, personalInfo } from '../data/personal'
  */
 export default function Internship() {
   return (
-    <section aria-labelledby="internship-heading" className="relative overflow-hidden border-y border-white/10 bg-ink-700">
+    <section aria-labelledby="internship-heading" className="relative overflow-hidden border-y border-line/10 bg-surface">
       {/* glow */}
       <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-accent/20 blur-[110px]" />
 
@@ -25,14 +25,14 @@ export default function Internship() {
 
         {/* divider line */}
         <Reveal delay={100}>
-          <hr className="mt-10 border-white/10" />
-          <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-400">
+          <hr className="mt-10 border-line/10" />
+          <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-body">
             <span className="inline-flex h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
             {internship.note}
             <span aria-hidden="true">·</span>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-white underline decoration-accent decoration-2 underline-offset-4 transition-colors duration-200 hover:text-accent-400"
+              className="text-heading underline decoration-accent decoration-2 underline-offset-4 transition-colors duration-200 hover:text-accent-400"
             >
               {personalInfo.email}
             </a>

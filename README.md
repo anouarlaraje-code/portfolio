@@ -27,6 +27,10 @@ npm run preview
 
 - Single page with smooth-scroll navbar anchors: Home, About, Skills, Projects, Contact
 - Dark theme (#0f1720 / #1a2230) with one blue accent (#1a63f0)
+- Light mode: switch in the navbar (sun/moon). The choice is saved in
+  localStorage and the system preference is used on the first visit
+- Colours are theme tokens (`bg`, `surface`, `line`, `heading`, `body`, `muted`, `accent`)
+  defined as CSS variables in `src/index.css` - both themes edit only that one file
 - Space Grotesk from Google Fonts
 - Fade-in-on-scroll animations (IntersectionObserver + CSS, respects prefers-reduced-motion)
 - Fully responsive: hamburger menu on mobile, grids step 1 -> 2 -> 4 columns

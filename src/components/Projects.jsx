@@ -19,7 +19,7 @@ export default function Projects() {
             </p>
             <h2 className="heading-xl">Things I have built</h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-slate-400">
+          <p className="max-w-sm text-sm leading-relaxed text-body">
             Student and personal projects, from an online store to an inventory system - each one
             built end to end.
           </p>
@@ -41,13 +41,13 @@ export default function Projects() {
                   />
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-ink-700 via-transparent to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"
                   />
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="text-lg font-semibold">{project.title}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-400">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-body">
                     {project.description}
                   </p>
 
@@ -56,7 +56,7 @@ export default function Projects() {
                     {project.tags.map((tag) => (
                       <li
                         key={tag}
-                        className="rounded-md border border-white/10 bg-ink-800/80 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-slate-300"
+                        className="rounded-md border border-line/10 bg-surface2/80 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-body"
                       >
                         {tag}
                       </li>
@@ -70,7 +70,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noreferrer noopener"
                       aria-label={`View the source code of ${project.title} on GitHub`}
-                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-ink-800/70 px-4 py-2.5 text-sm font-medium text-slate-200 transition-colors duration-200 hover:border-accent/60 hover:text-accent-400"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line/10 bg-surface2 px-4 py-2.5 text-sm font-medium text-heading transition-colors duration-200 hover:border-accent/60 hover:text-accent-400"
                     >
                       <Github className="h-4 w-4" aria-hidden="true" />
                       GitHub

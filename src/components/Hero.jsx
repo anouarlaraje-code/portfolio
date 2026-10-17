@@ -16,7 +16,7 @@ export default function Hero() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-32 left-1/2 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-accent/15 blur-[140px]" />
         <div className="absolute right-[-10%] top-1/3 h-96 w-96 rounded-full bg-accent/10 blur-[120px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:70px_70px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-line)_1px,transparent_1px)] bg-[size:70px_70px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       </div>
 
       <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
@@ -26,7 +26,7 @@ export default function Hero() {
           <span aria-hidden="true" className="mb-8 block h-[2px] w-16 bg-white" />
 
           {/* availability badge */}
-          <p className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-ink-700/70 px-4 py-2 text-xs font-medium text-slate-300">
+          <p className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line/10 bg-surface px-4 py-2 text-xs font-medium text-body">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-accent" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
@@ -34,12 +34,12 @@ export default function Hero() {
             {personalInfo.badge}
           </p>
 
-          <h1 className="text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-white sm:text-6xl">
+          <h1 className="text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-heading sm:text-6xl">
             I&rsquo;m {personalInfo.firstName}, a{' '}
             <span className="text-accent">Full-Stack Developer</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-body sm:text-lg">
             {personalInfo.heroDescription}
           </p>
 
@@ -60,13 +60,13 @@ export default function Hero() {
             {/* decorative ring */}
             <div
               aria-hidden="true"
-              className="absolute -inset-6 rounded-[3rem] border border-white/10"
+              className="absolute -inset-6 rounded-[3rem] border border-line/10"
             />
             <div
               aria-hidden="true"
               className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-b from-accent/25 to-transparent blur-xl"
             />
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-ink-700 to-ink-900">
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-line/10 bg-gradient-to-b from-surface to-bg">
               <img
                 src={personalInfo.photo}
                 alt={personalInfo.photoAlt}
@@ -85,8 +85,8 @@ export default function Hero() {
           style={{ animationDelay: '240ms' }}
         >
           {heroLinks.map((item) => (
-            <div key={item.id} className="border-t border-white/10 pt-5">
-              <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
+            <div key={item.id} className="border-t border-line/10 pt-5">
+              <p className="text-xs font-medium uppercase tracking-[0.25em] text-body">
                 {item.label}
               </p>
               <a href={item.href} className="link-arrow group mt-3">
@@ -96,8 +96,8 @@ export default function Hero() {
             </div>
           ))}
 
-          <div className="border-t border-white/10 pt-5">
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
+          <div className="border-t border-line/10 pt-5">
+            <p className="text-xs font-medium uppercase tracking-[0.25em] text-body">
               Follow me
             </p>
             <div className="mt-4 flex items-center gap-3">
@@ -109,7 +109,7 @@ export default function Hero() {
                   rel={external ? 'noreferrer noopener' : undefined}
                   aria-label={label}
                   title={label}
-                  className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-ink-700/60 text-slate-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
+                  className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-surface text-body transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
                 >
                   <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                 </a>

@@ -35,7 +35,7 @@ const contactDetails = [
 
 /** Input styles shared by the three fields. */
 const fieldClasses =
-  'w-full rounded-xl border border-white/10 bg-ink-800/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 transition-colors duration-200 focus:border-accent focus:outline-none'
+  'w-full rounded-xl border border-line/10 bg-surface2/80 px-4 py-3 text-sm text-heading placeholder:text-muted transition-colors duration-200 focus:border-accent focus:outline-none'
 
 /**
  * Contact: details + a validated contact form (no backend required).
@@ -76,7 +76,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section-pad border-t border-white/5">
+    <section id="contact" className="section-pad border-t border-line/5">
       <div className="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
         {/* ---------------------------- left ---------------------------- */}
         <Reveal>
@@ -87,7 +87,7 @@ export default function Contact() {
             Contact
           </p>
           <h2 className="heading-xl max-w-md">Let us build something together</h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-slate-400">
+          <p className="mt-6 max-w-md text-base leading-relaxed text-body">
             Looking for a one-month Full-Stack internship starting January 2027? Have a project in
             mind? Send me a message, I will get back to you as soon as possible.
           </p>
@@ -101,16 +101,16 @@ export default function Contact() {
                     href={item.href}
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noreferrer noopener' : undefined}
-                    className="card group flex items-center gap-4 p-4 transition-all duration-300 hover:border-accent/50 hover:bg-ink-700"
+                    className="card group flex items-center gap-4 p-4 transition-all duration-300 hover:border-accent/50 hover:bg-surface"
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent-400">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <span>
-                      <span className="block text-xs uppercase tracking-[0.2em] text-slate-500">
+                      <span className="block text-xs uppercase tracking-[0.2em] text-muted">
                         {item.label}
                       </span>
-                      <span className="mt-0.5 block text-sm font-medium text-white">
+                      <span className="mt-0.5 block text-sm font-medium text-heading">
                         {item.value}
                       </span>
                     </span>
@@ -120,7 +120,7 @@ export default function Contact() {
             })}
           </ul>
 
-          <p className="mt-8 inline-flex items-center gap-2 text-sm text-slate-400">
+          <p className="mt-8 inline-flex items-center gap-2 text-sm text-body">
             <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
             {personalInfo.location}
           </p>
@@ -137,7 +137,7 @@ export default function Contact() {
             <div className="grid gap-5">
               {/* name */}
               <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-300">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-body">
                   Name
                 </label>
                 <input
@@ -150,10 +150,10 @@ export default function Contact() {
                   onChange={handleChange}
                   aria-invalid={Boolean(errors.name)}
                   aria-describedby={errors.name ? 'name-error' : undefined}
-                  className={`${fieldClasses} ${errors.name ? 'border-red-500/70' : ''}`}
+                  className={`${fieldClasses} ${errors.name ? 'border-danger/70' : ''}`}
                 />
                 {errors.name && (
-                  <p id="name-error" role="alert" className="mt-2 text-xs text-red-400">
+                  <p id="name-error" role="alert" className="mt-2 text-xs text-danger">
                     {errors.name}
                   </p>
                 )}
@@ -161,7 +161,7 @@ export default function Contact() {
 
               {/* email */}
               <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-300">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-body">
                   Email
                 </label>
                 <input
@@ -174,10 +174,10 @@ export default function Contact() {
                   onChange={handleChange}
                   aria-invalid={Boolean(errors.email)}
                   aria-describedby={errors.email ? 'email-error' : undefined}
-                  className={`${fieldClasses} ${errors.email ? 'border-red-500/70' : ''}`}
+                  className={`${fieldClasses} ${errors.email ? 'border-danger/70' : ''}`}
                 />
                 {errors.email && (
-                  <p id="email-error" role="alert" className="mt-2 text-xs text-red-400">
+                  <p id="email-error" role="alert" className="mt-2 text-xs text-danger">
                     {errors.email}
                   </p>
                 )}
@@ -185,7 +185,7 @@ export default function Contact() {
 
               {/* message */}
               <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-300">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-body">
                   Message
                 </label>
                 <textarea
@@ -197,10 +197,10 @@ export default function Contact() {
                   onChange={handleChange}
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? 'message-error' : undefined}
-                  className={`${fieldClasses} resize-y ${errors.message ? 'border-red-500/70' : ''}`}
+                  className={`${fieldClasses} resize-y ${errors.message ? 'border-danger/70' : ''}`}
                 />
                 {errors.message && (
-                  <p id="message-error" role="alert" className="mt-2 text-xs text-red-400">
+                  <p id="message-error" role="alert" className="mt-2 text-xs text-danger">
                     {errors.message}
                   </p>
                 )}
@@ -217,14 +217,14 @@ export default function Contact() {
 
             {/* feedback once the message is handed over to the email app */}
             {sent && (
-              <p role="status" className="mt-5 flex items-start gap-2 text-sm text-slate-300">
+              <p role="status" className="mt-5 flex items-start gap-2 text-sm text-body">
                 <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                 Your email app should be opening with the message ready to send. If nothing
                 happens, write directly to {personalInfo.email}.
               </p>
             )}
 
-            <p className="mt-5 text-xs text-slate-500">
+            <p className="mt-5 text-xs text-muted">
               Prefer social media?{' '}
               {socialLinks
                 .filter((link) => link.external)
@@ -234,7 +234,7 @@ export default function Contact() {
                       href={link.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-slate-300 underline decoration-white/30 underline-offset-4 transition-colors duration-200 hover:text-accent-400"
+                      className="text-body underline decoration-line/30 underline-offset-4 transition-colors duration-200 hover:text-accent-400"
                     >
                       {link.label}
                     </a>

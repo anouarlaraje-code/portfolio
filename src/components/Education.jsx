@@ -7,7 +7,7 @@ import { education } from '../data/personal'
  */
 export default function Education() {
   return (
-    <section id="education" className="section-pad border-y border-white/5 bg-ink-800/40">
+    <section id="education" className="section-pad border-y border-line/5 bg-surface2">
       <div className="container-x">
         <Reveal className="max-w-2xl">
           <p className="section-label">
@@ -29,11 +29,11 @@ export default function Education() {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{entry.school}</h3>
                   <p className="mt-1 text-sm font-medium text-accent-400">{entry.degree}</p>
-                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-body">
                     {entry.description}
                   </p>
                 </div>
-                <p className="inline-flex shrink-0 items-center gap-2 text-sm text-slate-400">
+                <p className="inline-flex shrink-0 items-center gap-2 text-sm text-body">
                   <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
                   {entry.location}
                 </p>

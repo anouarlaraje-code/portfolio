@@ -23,7 +23,7 @@ export default function About() {
 
         {/* Right column: bio, stats, link */}
         <Reveal delay={120} className="lg:col-span-7">
-          <p className="text-base leading-relaxed text-slate-400 sm:text-lg">
+          <p className="text-base leading-relaxed text-body sm:text-lg">
             {personalInfo.bio}
           </p>
 
@@ -34,7 +34,7 @@ export default function About() {
                 className="card p-6 transition-colors duration-300 hover:border-accent/40"
               >
                 <dt className="text-4xl font-semibold text-accent">{stat.value}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-slate-400">{stat.label}</dd>
+                <dd className="mt-2 text-sm leading-relaxed text-body">{stat.label}</dd>
               </div>
             ))}
           </dl>

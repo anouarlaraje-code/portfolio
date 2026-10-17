@@ -6,7 +6,7 @@ import { personalInfo, socialLinks } from '../data/personal'
  */
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-ink-800/60">
+    <footer className="border-t border-line/10 bg-surface2">
       <div className="container-x py-12">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           {/* logo */}
@@ -15,10 +15,10 @@ export default function Footer() {
               <span className="text-[13px] font-bold leading-none">&lt;/&gt;</span>
             </span>
             <span>
-              <span className="block text-base font-semibold text-white">
+              <span className="block text-base font-semibold text-heading">
                 {personalInfo.name}
               </span>
-              <span className="block text-xs uppercase tracking-[0.2em] text-slate-500">
+              <span className="block text-xs uppercase tracking-[0.2em] text-muted">
                 {personalInfo.title}
               </span>
             </span>
@@ -31,7 +31,7 @@ export default function Footer() {
                 <li key={link.id}>
                   <a
                     href={link.href}
-                    className="text-sm text-slate-400 transition-colors duration-200 hover:text-white"
+                    className="text-sm text-body transition-colors duration-200 hover:text-heading"
                   >
                     {link.label}
                   </a>
@@ -50,7 +50,7 @@ export default function Footer() {
                   rel={external ? 'noreferrer noopener' : undefined}
                   aria-label={label}
                   title={label}
-                  className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-slate-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
+                  className="grid h-10 w-10 place-items-center rounded-lg border border-line/10 text-body transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -59,13 +59,13 @@ export default function Footer() {
           </ul>
         </div>
 
-        <hr className="my-8 border-white/10" />
+        <hr className="my-8 border-line/10" />
 
-        <div className="flex flex-col gap-2 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 {personalInfo.name} — All rights reserved.</p>
           <p>
-            Built with <span className="text-slate-300">React</span> +{' '}
-            <span className="text-slate-300">Tailwind CSS</span>
+            Built with <span className="text-body">React</span> +{' '}
+            <span className="text-body">Tailwind CSS</span>
           </p>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { story } from '../data/personal'
  */
 export default function Story() {
   return (
-    <section id="story" className="section-pad border-y border-white/5 bg-ink-800/40">
+    <section id="story" className="section-pad border-y border-line/5 bg-surface2">
       <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Text */}
         <Reveal>
@@ -19,7 +19,7 @@ export default function Story() {
           <h2 className="heading-xl max-w-lg">{story.heading}</h2>
           <div className="mt-7 space-y-5">
             {story.paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-base leading-relaxed text-slate-400 sm:text-lg">
+              <p key={index} className="text-base leading-relaxed text-body sm:text-lg">
                 {paragraph}
               </p>
             ))}
@@ -31,7 +31,7 @@ export default function Story() {
           <div className="relative">
             <div
               aria-hidden="true"
-              className="absolute -inset-4 rounded-[2rem] border border-white/10"
+              className="absolute -inset-4 rounded-[2rem] border border-line/10"
             />
             <img
               src={story.image}
@@ -39,7 +39,7 @@ export default function Story() {
               width="900"
               height="620"
               loading="lazy"
-              className="relative w-full rounded-[1.75rem] border border-white/10 object-cover"
+              className="relative w-full rounded-[1.75rem] border border-line/10 object-cover"
             />
           </div>
         </Reveal>
