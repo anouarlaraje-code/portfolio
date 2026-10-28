@@ -1,11 +1,14 @@
 import { GraduationCap, MapPin } from 'lucide-react'
 import Reveal from './Reveal'
 import { education } from '../data/personal'
+import { useTranslation } from '../i18n/LanguageContext'
 
 /**
  * Education: current Full-Stack training at ISTA Bab Tizimi (OFPPT).
  */
 export default function Education() {
+  const { t } = useTranslation()
+
   return (
     <section id="education" className="section-pad border-y border-line/5 bg-surface2">
       <div className="container-x">
@@ -14,9 +17,9 @@ export default function Education() {
             <span className="slash" aria-hidden="true">
               /
             </span>
-            Education
+            {t('education.label')}
           </p>
-          <h2 className="heading-xl">Where I am learning</h2>
+          <h2 className="heading-xl">{t('education.heading')}</h2>
         </Reveal>
 
         <div className="mt-12 grid gap-5">
@@ -28,14 +31,16 @@ export default function Education() {
                 </span>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{entry.school}</h3>
-                  <p className="mt-1 text-sm font-medium text-accent-400">{entry.degree}</p>
+                  <p className="mt-1 text-sm font-medium text-accent-400">
+                    {t('education.degree')}
+                  </p>
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-body">
-                    {entry.description}
+                    {t('education.description')}
                   </p>
                 </div>
                 <p className="inline-flex shrink-0 items-center gap-2 text-sm text-body">
                   <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
-                  {entry.location}
+                  {t('contact.location')}
                 </p>
               </article>
             </Reveal>

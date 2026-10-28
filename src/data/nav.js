@@ -1,10 +1,11 @@
-/** Navbar anchors - each href must match the id of a section in App.jsx */
+/** Navbar anchors - each href must match the id of a section in App.jsx.
+ *  Labels come from the translation files (src/i18n/*.js). */
 export const navLinks = [
-  { id: 'home', label: 'Home', href: '#home' },
-  { id: 'about', label: 'About', href: '#about' },
-  { id: 'skills', label: 'Skills', href: '#skills' },
-  { id: 'projects', label: 'Projects', href: '#projects' },
-  { id: 'contact', label: 'Contact', href: '#contact' },
+  { id: 'home', href: '#home' },
+  { id: 'about', href: '#about' },
+  { id: 'skills', href: '#skills' },
+  { id: 'projects', href: '#projects' },
+  { id: 'contact', href: '#contact' },
 ]
 
 export default navLinks

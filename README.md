@@ -1,7 +1,8 @@
 # Anouar Laraje - Portfolio
 
-A modern, responsive, dark-mode personal portfolio for **Anouar Laraje**, Full-Stack Web
-Developer. Built with **React (Vite)** and **Tailwind CSS**.
+A modern, responsive, dark/light-mode personal portfolio for **Anouar Laraje**, Full-Stack
+Web Developer, in **English, French and Arabic**. Built with **React (Vite)** and
+**Tailwind CSS**.
 
 ## Requirements
 
@@ -31,7 +32,13 @@ npm run preview
   localStorage and the system preference is used on the first visit
 - Colours are theme tokens (`bg`, `surface`, `line`, `heading`, `body`, `muted`, `accent`)
   defined as CSS variables in `src/index.css` - both themes edit only that one file
-- Space Grotesk from Google Fonts
+- Three languages: English, French and Arabic - switch with the globe button in the
+  navbar. The choice is saved in localStorage, and first-time visitors get the language
+  matching their browser (fr / ar / en)
+- Arabic switches the whole layout to RTL (`html[dir="rtl"]` is set automatically),
+  arrows flip, and letter-spacing is disabled so the Arabic script stays properly joined
+- Space Grotesk + IBM Plex Sans Arabic from Google Fonts (browsers pick per glyph:
+  Latin in Space Grotesk, Arabic in IBM Plex Sans Arabic)
 - Fade-in-on-scroll animations (IntersectionObserver + CSS, respects prefers-reduced-motion)
 - Fully responsive: hamburger menu on mobile, grids step 1 -> 2 -> 4 columns
 - Contact form with front-end validation (no backend needed)
@@ -59,28 +66,45 @@ portfolio/
     components/
       Navbar.jsx  Hero.jsx  About.jsx  Story.jsx  Internship.jsx
       Skills.jsx  Education.jsx  Projects.jsx  Contact.jsx  Footer.jsx
-      Reveal.jsx                  <- fade-in-on-scroll wrapper
+      LanguageSwitcher.jsx      <- globe menu (English / Français / العربية)
+      Reveal.jsx                <- fade-in-on-scroll wrapper
     data/
-      personal.js                 <- name, contact, social links, bio, stats
-      nav.js                      <- navbar links
-      projects.js                 <- the 5 projects
-      skills.js                   <- skill groups and languages
+      personal.js               <- name, contact details, social links, photo
+      nav.js                    <- navbar links
+      projects.js               <- the 5 projects (ids, tags, image, urls)
+      skills.js                 <- skill groups and languages
     hooks/
-      useActiveSection.js         <- highlights the current navbar link
-      useLockBodyScroll.js        <- locks scroll while the mobile menu is open
+      useActiveSection.js       <- highlights the current navbar link
+      useLockBodyScroll.js      <- locks scroll while the mobile menu is open
+      useTheme.js               <- light/dark state + localStorage
+    i18n/
+      en.js fr.js ar.js         <- every user-facing string, one file per language
+      LanguageContext.jsx       <- language provider + t() helper
 ```
 
 ## Editing your content
 
-All text lives in `src/data/`:
+Every user-facing sentence lives in `src/i18n/` - one file per language, all with the
+same keys:
 
-- `personal.js` - name, title, badge, bio, stats, story, internship text, education, contact
-  details and social links. Change `github` and `linkedin` from `#` to your real profiles.
-- `projects.js` - the project cards. Add or remove objects; fill in `github` and `live`.
-- `skills.js` - the four skill columns and the languages list.
-- `nav.js` - the navbar anchors (each `href` must match a section `id` in `App.jsx`).
+- `en.js` / `fr.js` / `ar.js` - nav labels, hero text, bio, stats, story, internship
+  note, skill group titles, education, project titles + descriptions, contact form
+  labels/validation messages, footer. To add a language, copy `en.js`, translate it, and
+  register it in `LanguageContext.jsx` (the `LANGUAGES` list).
+- Placeholders like `{title}` or `{email}` in a string are filled in by `t('key', { title })`.
+
+Language-neutral data stays in `src/data/`:
+
+- `personal.js` - name, email, phone, social URLs, photo path, education entry. Change
+  `github` and `linkedin` from `#` to your real profiles.
+- `projects.js` - ids, tech tags, preview image and `github` / `live` URLs of the 5
+  projects. Add or remove objects freely; the titles/descriptions are in `src/i18n/`.
+- `skills.js` - the four skill columns (group ids map to `skills.groups.*` in the
+  translations) and the languages list.
+- `nav.js` - the navbar anchors (each `href` must match a section `id` in `App.jsx`, and
+  each `id` maps to `nav.*` in the translations).
 
 To swap the hero photo, drop a file in `public/assets/` and update `photo` in
 `personal.js`. The contact form has no server: on a valid submit it opens the visitor's
 email app with the message pre-filled to `anwarlaraje3@gmail.com`. To use a real form
-backend, replace the `handleSubmit` logic in `components/Contact.jsx`."# portfolio" 
+backend, replace the `handleSubmit` logic in `components/Contact.jsx`.

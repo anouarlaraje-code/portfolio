@@ -1,10 +1,12 @@
 import Reveal from './Reveal'
-import { personalInfo, stats } from '../data/personal'
+import { useTranslation } from '../i18n/LanguageContext'
 
 /**
  * About: bio paragraph, real stats and a "more about me" link.
  */
 export default function About() {
+  const { t, dict } = useTranslation()
+
   return (
     <section id="about" className="section-pad relative">
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -14,21 +16,17 @@ export default function About() {
             <span className="slash" aria-hidden="true">
               /
             </span>
-            About me
+            {t('about.label')}
           </p>
-          <h2 className="heading-xl max-w-md">
-            Building complete web apps, from interface to database
-          </h2>
+          <h2 className="heading-xl max-w-md">{t('about.heading')}</h2>
         </Reveal>
 
         {/* Right column: bio, stats, link */}
         <Reveal delay={120} className="lg:col-span-7">
-          <p className="text-base leading-relaxed text-body sm:text-lg">
-            {personalInfo.bio}
-          </p>
+          <p className="text-base leading-relaxed text-body sm:text-lg">{t('about.bio')}</p>
 
           <dl className="mt-10 grid gap-4 sm:grid-cols-2">
-            {stats.map((stat) => (
+            {dict.about.stats.map((stat) => (
               <div
                 key={stat.label}
                 className="card p-6 transition-colors duration-300 hover:border-accent/40"
@@ -40,8 +38,8 @@ export default function About() {
           </dl>
 
           <a href="#story" className="link-arrow group mt-10">
-            <span className="link-arrow__text">More about me</span>
-            <span aria-hidden="true">→</span>
+            <span className="link-arrow__text">{t('about.more')}</span>
+            <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
           </a>
         </Reveal>
       </div>

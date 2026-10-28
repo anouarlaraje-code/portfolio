@@ -1,10 +1,13 @@
 import { navLinks } from '../data/nav'
 import { personalInfo, socialLinks } from '../data/personal'
+import { useTranslation } from '../i18n/LanguageContext'
 
 /**
  * Footer: logo, quick links, social icons and the copyright line.
  */
 export default function Footer() {
+  const { t } = useTranslation()
+
   return (
     <footer className="border-t border-line/10 bg-surface2">
       <div className="container-x py-12">
@@ -19,7 +22,7 @@ export default function Footer() {
                 {personalInfo.name}
               </span>
               <span className="block text-xs uppercase tracking-[0.2em] text-muted">
-                {personalInfo.title}
+                {t('footer.role')}
               </span>
             </span>
           </a>
@@ -33,7 +36,7 @@ export default function Footer() {
                     href={link.href}
                     className="text-sm text-body transition-colors duration-200 hover:text-heading"
                   >
-                    {link.label}
+                    {t('nav.' + link.id)}
                   </a>
                 </li>
               ))}
@@ -42,14 +45,14 @@ export default function Footer() {
 
           {/* social icons */}
           <ul className="flex items-center gap-3">
-            {socialLinks.map(({ id, label, url, icon: Icon, external }) => (
+            {socialLinks.map(({ id, url, icon: Icon, external }) => (
               <li key={id}>
                 <a
                   href={url}
                   target={external ? '_blank' : undefined}
                   rel={external ? 'noreferrer noopener' : undefined}
-                  aria-label={label}
-                  title={label}
+                  aria-label={t('social.' + id)}
+                  title={t('social.' + id)}
                   className="grid h-10 w-10 place-items-center rounded-lg border border-line/10 text-body transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
@@ -62,9 +65,9 @@ export default function Footer() {
         <hr className="my-8 border-line/10" />
 
         <div className="flex flex-col gap-2 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 {personalInfo.name} — All rights reserved.</p>
+          <p>{t('footer.rights')}</p>
           <p>
-            Built with <span className="text-body">React</span> +{' '}
+            {t('footer.builtWith')} <span className="text-body">React</span> +{' '}
             <span className="text-body">Tailwind CSS</span>
           </p>
         </div>

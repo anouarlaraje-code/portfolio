@@ -2,20 +2,24 @@ import { useEffect, useState } from 'react'
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { navLinks } from '../data/nav'
 import { socialLinks } from '../data/personal'
+import { useTranslation } from '../i18n/LanguageContext'
 import useActiveSection from '../hooks/useActiveSection'
 import useLockBodyScroll from '../hooks/useLockBodyScroll'
 import useTheme from '../hooks/useTheme'
+import LanguageSwitcher from './LanguageSwitcher'
 
 const sectionIds = navLinks.map((link) => link.id)
 
 /**
- * Fixed top navigation: logo, anchors, light/dark switch, hamburger on mobile.
+ * Fixed top navigation: logo, anchors, language switch, light/dark switch,
+ * hamburger menu on mobile.
  */
 export default function Navbar() {
   const [open, setOpen] = useState(false) // mobile menu
   const [scrolled, setScrolled] = useState(false) // background when the page moves
   const active = useActiveSection(sectionIds)
   const { theme, toggle } = useTheme()
+  const { t } = useTranslation()
 
   useLockBodyScroll(open)
 
@@ -69,7 +73,7 @@ export default function Navbar() {
                   active === link.id ? 'text-heading' : 'text-body hover:text-heading'
                 }`}
               >
-                {link.label}
+                {t('nav.' + link.id)}
                 <span
                   aria-hidden="true"
                   className={`absolute inset-x-4 -bottom-0.5 h-[2px] rounded-full bg-accent transition-all duration-300 ${
@@ -81,13 +85,15 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Light / dark switch + hamburger */}
+        {/* Language switch, light/dark switch, hamburger */}
         <div className="flex items-center gap-2 md:gap-3">
+          <LanguageSwitcher />
+
           <button
             type="button"
             onClick={toggle}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={isDark ? t('ui.themeToLight') : t('ui.themeToDark')}
+            title={isDark ? t('ui.themeToLight') : t('ui.themeToDark')}
             className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-surface text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-400"
           >
             {isDark ? (
@@ -102,7 +108,7 @@ export default function Navbar() {
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('ui.menuClose') : t('ui.menuOpen')}
             className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-surface text-heading transition-colors duration-200 hover:border-accent/60 hover:text-accent-400 md:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -127,7 +133,7 @@ export default function Navbar() {
                   active === link.id ? 'text-accent-400' : 'text-body hover:text-heading'
                 }`}
               >
-                {link.label}
+                {t('nav.' + link.id)}
                 {active === link.id && (
                   <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
                 )}
@@ -138,11 +144,11 @@ export default function Navbar() {
 
         {/* Social icons inside the mobile menu */}
         <div className="container-x flex items-center gap-3 pb-6">
-          {socialLinks.map(({ id, label, url, icon: Icon, external }) => (
+          {socialLinks.map(({ id, url, icon: Icon, external }) => (
             <a
               key={id}
               href={url}
-              aria-label={label}
+              aria-label={t('social.' + id)}
               target={external ? '_blank' : undefined}
               rel={external ? 'noreferrer noopener' : undefined}
               onClick={() => setOpen(false)}

@@ -160,6 +160,12 @@
   background: var(--scroll-thumb-hover);
 }
 
+/* Arabic (RTL): letter-spacing breaks the joined script, so all tracking
+   utilities are neutralised while the page is in Arabic. */
+html[dir="rtl"] :where(*) {
+  letter-spacing: normal;
+}
+
 /* Respect users who prefer less motion */
 @media (prefers-reduced-motion: reduce) {
   html {

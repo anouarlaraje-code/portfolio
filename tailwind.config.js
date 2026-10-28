@@ -37,7 +37,15 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Space Grotesk has no Arabic glyphs, so IBM Plex Sans Arabic covers
+        // Arabic text automatically (browsers pick the first font with a glyph)
+        sans: [
+          '"Space Grotesk"',
+          '"IBM Plex Sans Arabic"',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
       },
       maxWidth: {
         container: '76rem', // ~1216px
