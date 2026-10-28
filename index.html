@@ -1,56 +1,611 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f1720" />
-    <meta
-      name="description"
-      content="Anouar Laraje - Full-Stack Web Developer (React, Next.js, Node.js, PHP/Laravel) based in Meknes, Morocco. Available for a one-month internship starting January 2027."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Anouar Laraje | Full-Stack Web Developer</title>
-    <script>
-      // Apply the saved theme and language before the first paint, so the page
-      // never flashes the wrong colours or the wrong text direction.
-      (function () {
-        var theme = null;
-        try {
-          theme = window.localStorage.getItem('anouar-portfolio-theme');
-        } catch (e) {
-          /* storage unavailable (private mode) - fall back to system */
-        }
-        if (theme !== 'light' && theme !== 'dark') {
-          theme =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
-              ? 'light'
-              : 'dark';
-        }
-        document.documentElement.dataset.theme = theme;
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anouar Laraje | Full-Stack Web Developer</title>
+  <meta name="description" content="Portfolio of Anouar Laraje, Full-Stack Web Developer from Meknès, Morocco - React, Bootstrap, PHP/Laravel and Python." />
+  <meta name="author" content="Anouar Laraje" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
-        var lang = null;
-        try {
-          lang = window.localStorage.getItem('anouar-portfolio-lang');
-        } catch (e) {
-          /* storage unavailable */
-        }
-        if (lang !== 'en' && lang !== 'fr' && lang !== 'ar') {
-          var browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
-          lang = browser === 'fr' || browser === 'ar' ? browser : 'en';
-        }
-        document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <!-- Fonts: Space Grotesk (Latin) + IBM Plex Sans Arabic (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap 5 (RTL build is swapped in by the script below for Arabic) -->
+  <link id="bootstrap-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <script>
+    /* Apply the saved theme and language BEFORE the first paint so the page
+       never flashes the wrong colours or the wrong text direction. */
+    (function () {
+      // --- theme ---
+      var theme = null;
+      try {
+        theme = window.localStorage.getItem('anouar-portfolio-theme');
+      } catch (e) {
+        /* storage unavailable (private mode) - fall back to system */
+      }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+      }
+      document.documentElement.dataset.theme = theme;
+
+      // --- language (auto-detect the browser language on the first visit) ---
+      var lang = null;
+      try {
+        lang = window.localStorage.getItem('anouar-portfolio-lang');
+      } catch (e) {
+        /* storage unavailable */
+      }
+      if (lang !== 'en' && lang !== 'fr' && lang !== 'ar') {
+        var browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
+        lang = browser === 'fr' || browser === 'ar' ? browser : 'en';
+      }
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      if (lang === 'ar') {
+        // Bootstrap ships an official RTL stylesheet - use it for Arabic.
+        document.getElementById('bootstrap-css').href =
+          'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css';
+      }
+      window.__INITIAL_LANG = lang;
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- Keyboard users: skip straight to the content -->
+  <a class="skip-link" href="#main" data-i18n="ui.skip">Skip to content</a>
+
+  <!-- ============================= Navbar ============================= -->
+  <header>
+    <nav class="navbar navbar-expand-md site-navbar" aria-label="Main navigation">
+      <div class="container">
+        <!-- Logo: </> Anouar -->
+        <a class="navbar-brand navbar-brand-custom" href="#home" aria-label="Back to the top">
+          <span class="brand-badge" aria-hidden="true">&lt;/&gt;</span>
+          <span>Anouar</span>
+        </a>
+
+        <!-- Hamburger (Bootstrap collapse) -->
+        <button
+          class="navbar-toggler icon-btn"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+          aria-label="Open menu"
+          data-i18n-al="ui.menuOpen"
+        >
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mobileMenu">
+          <!-- Desktop links (also used inside the mobile panel) -->
+          <ul class="navbar-nav mx-auto mb-2 mb-md-0 gap-md-1">
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#home" data-nav="home" data-i18n="nav.home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#about" data-nav="about" data-i18n="nav.about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#skills" data-nav="skills" data-i18n="nav.skills">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#projects" data-nav="projects" data-i18n="nav.projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a>
+            </li>
+          </ul>
+
+          <!-- Controls: language, theme -->
+          <div class="d-flex align-items-center gap-2">
+            <!-- Language switcher -->
+            <div class="dropdown">
+              <button
+                class="icon-btn"
+                type="button"
+                id="langMenuBtn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="langMenu"
+                aria-label="Change language"
+                data-i18n-al="ui.changeLanguage"
+              >
+                <i class="bi bi-globe" aria-hidden="true"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end lang-menu" id="langMenu" aria-labelledby="langMenuBtn">
+                <li>
+                  <button class="dropdown-item" type="button" data-lang="en" lang="en">
+                    <span>English</span><i class="bi bi-check2 d-none" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" data-lang="fr" lang="fr">
+                    <span>Français</span><i class="bi bi-check2 d-none" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" data-lang="ar" lang="ar" dir="rtl">
+                    <span>العربية</span><i class="bi bi-check2 d-none" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Light / dark switch -->
+            <button
+              class="icon-btn"
+              type="button"
+              id="themeToggle"
+              aria-label="Switch to light mode"
+              data-i18n-al="ui.themeToLight"
+            >
+              <i class="bi bi-sun" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============================== Hero ============================== -->
+    <section id="home" class="hero">
+      <!-- decorative background -->
+      <div class="hero__bg" aria-hidden="true">
+        <span class="hero__glow hero__glow--1"></span>
+        <span class="hero__glow hero__glow--2"></span>
+        <span class="hero__grid"></span>
+      </div>
+
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <!-- intro text -->
+          <div class="col-lg-5 reveal">
+            <span class="hero__line" aria-hidden="true"></span>
+
+            <p class="hero__badge">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span data-i18n="hero.badge">Available for internship, January 2027</span>
+            </p>
+
+            <h1 class="hero__title">
+              <span data-i18n="hero.titleLead">I’m Anouar, a</span>
+              <span class="accent" data-i18n="hero.titleAccent">Full-Stack Developer</span>
+            </h1>
+
+            <p class="hero__desc" data-i18n="hero.description">
+              I build complete, scalable web apps from the interface to the database.
+            </p>
+
+            <button
+              class="scroll-btn"
+              type="button"
+              id="scrollToAbout"
+              aria-label="Scroll down to the About section"
+              data-i18n-al="hero.scrollAria"
+            >
+              <i class="bi bi-arrow-down" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- portrait -->
+          <div class="col-lg-4 reveal" style="transition-delay: 120ms">
+            <div class="hero__photo">
+              <span class="hero__photo-ring" aria-hidden="true"></span>
+              <span class="hero__photo-glow" aria-hidden="true"></span>
+              <div class="hero__photo-frame">
+                <img
+                  src="assets/profile.jpeg"
+                  alt="Portrait of Anouar Laraje, full-stack web developer"
+                  data-i18n-al="hero.photoAlt"
+                  width="960"
+                  height="1080"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- about / work / follow -->
+          <div class="col-lg-3 reveal" style="transition-delay: 240ms">
+            <div class="quick-link">
+              <p class="quick-link__label" data-i18n="hero.labels.about">About me</p>
+              <a class="link-arrow mt-2" href="#about">
+                <span class="link-arrow__text" data-i18n="hero.ctas.learn">Learn more</span>
+                <i class="bi bi-arrow-right link-arrow__icon rtl-flip" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="quick-link">
+              <p class="quick-link__label" data-i18n="hero.labels.work">My work</p>
+              <a class="link-arrow mt-2" href="#projects">
+                <span class="link-arrow__text" data-i18n="hero.ctas.browse">Browse projects</span>
+                <i class="bi bi-arrow-right link-arrow__icon rtl-flip" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="quick-link">
+              <p class="quick-link__label" data-i18n="hero.labels.follow">Follow me</p>
+              <!-- social buttons (rendered from js/data.js) -->
+              <div class="social-row" id="heroSocials"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== About ============================= -->
+    <section id="about" class="section-pad">
+      <div class="container">
+        <div class="row g-4 g-lg-5">
+          <div class="col-lg-5 reveal">
+            <p class="section-label">
+              <span class="slash" aria-hidden="true">/</span>
+              <span data-i18n="about.label">About me</span>
+            </p>
+            <h2 class="heading-xl" data-i18n="about.heading">Building complete web apps</h2>
+          </div>
+
+          <div class="col-lg-7 reveal" style="transition-delay: 120ms">
+            <p data-i18n="about.bio" class="lh-lg mb-4">Full-Stack web developer in training.</p>
+
+            <!-- real stats (rendered from the translations) -->
+            <div class="row g-4" id="statsGrid"></div>
+
+            <a class="link-arrow mt-4 d-inline-flex" href="#story">
+              <span class="link-arrow__text" data-i18n="about.more">More about me</span>
+              <i class="bi bi-arrow-right link-arrow__icon rtl-flip" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Story ============================= -->
+    <section id="story" class="section-pad" style="background-color: var(--surface2); border-block: 1px solid var(--line)">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6 reveal">
+            <p class="section-label">
+              <span class="slash" aria-hidden="true">/</span>
+              <span data-i18n="story.label">My story</span>
+            </p>
+            <h2 class="heading-xl" data-i18n="story.heading">My journey into web development</h2>
+            <p class="mt-4 lh-lg" data-i18n="story.p1">I am studying Full-Stack Web Development.</p>
+            <p class="mt-3 lh-lg" data-i18n="story.p2">Most of what I know came from building projects.</p>
+          </div>
+
+          <div class="col-lg-6 reveal" style="transition-delay: 120ms">
+            <div class="story-image">
+              <span class="story-image__ring" aria-hidden="true"></span>
+              <img
+                src="assets/story.svg"
+                alt="Laptop showing source code, illustrating my learning journey"
+                data-i18n-al="story.imageAlt"
+                width="900"
+                height="620"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== Internship =========================== -->
+    <section class="internship-band" aria-labelledby="internshipHeading">
+      <span class="internship-band__glow" aria-hidden="true"></span>
+      <div class="container py-5 py-md-5 reveal">
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-4">
+          <h2 id="internshipHeading" class="heading-xl mb-0" data-i18n="internship.heading">
+            Looking for a 1-month Full-Stack internship
+          </h2>
+          <a class="link-arrow flex-shrink-0" href="#contact">
+            <span class="link-arrow__text" data-i18n="internship.cta">Get in touch</span>
+            <i class="bi bi-arrow-right link-arrow__icon rtl-flip" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <hr class="mt-4" style="border-color: var(--line)" />
+
+        <p class="internship-note mb-0">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-i18n="internship.note">Open to a one-month mission starting January 2027.</span>
+          <span aria-hidden="true">·</span>
+          <a href="mailto:anouarlaraje@gmail.com">anouarlaraje@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================== Skills ============================= -->
+    <section id="skills" class="section-pad">
+      <div class="container">
+        <div class="reveal" style="max-width: 42rem">
+          <p class="section-label">
+            <span class="slash" aria-hidden="true">/</span>
+            <span data-i18n="skills.label">Skills</span>
+          </p>
+          <h2 class="heading-xl" data-i18n="skills.heading">Technologies I work with every day</h2>
+          <p class="mt-4 lh-lg" data-i18n="skills.intro">From the interface down to the database.</p>
+        </div>
+
+        <!-- four skill columns (rendered from js/data.js) -->
+        <div class="row g-4 mt-4" id="skillsGrid"></div>
+
+        <!-- languages spoken -->
+        <div class="card-custom languages-card reveal" style="transition-delay: 160ms">
+          <div class="languages-card__head">
+            <span class="skill-card__icon" aria-hidden="true"><i class="bi bi-translate"></i></span>
+            <div>
+              <h3 class="skill-card__title mt-0" data-i18n="skills.languagesTitle">Languages</h3>
+              <p class="mb-0 text-body" style="font-size: 0.9rem" data-i18n="skills.languagesSubtitle">
+                Languages I speak
+              </p>
+            </div>
+          </div>
+          <ul class="languages-list mt-3 mt-md-0" id="languagesList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= Education =========================== -->
+    <section
+      id="education"
+      class="section-pad"
+      style="background-color: var(--surface2); border-block: 1px solid var(--line)"
+    >
+      <div class="container">
+        <div class="reveal" style="max-width: 42rem">
+          <p class="section-label">
+            <span class="slash" aria-hidden="true">/</span>
+            <span data-i18n="education.label">Education</span>
+          </p>
+          <h2 class="heading-xl" data-i18n="education.heading">Where I am learning</h2>
+        </div>
+
+        <div class="mt-4 reveal">
+          <article class="card-custom p-4 p-md-5 d-flex flex-column flex-md-row align-items-md-start gap-4">
+            <span class="edu-icon" aria-hidden="true"><i class="bi bi-mortarboard"></i></span>
+            <div class="flex-grow-1">
+              <h3 class="h5 mb-1">ISTA Bab Tizimi (OFPPT)</h3>
+              <p class="mb-2" style="color: var(--accent); font-size: 0.9rem; font-weight: 500" data-i18n="education.degree">
+                Full-Stack Web Development training
+              </p>
+              <p class="mb-0 lh-lg" style="font-size: 0.92rem" data-i18n="education.description">
+                Training focused on building complete web applications.
+              </p>
+            </div>
+            <p class="mb-0 d-flex align-items-center gap-2 flex-shrink-0" style="font-size: 0.9rem">
+              <i class="bi bi-geo-alt" style="color: var(--accent)" aria-hidden="true"></i>
+              <span data-i18n="contact.location">Meknès, Morocco</span>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== Web Security ========================= -->
+    <section id="security" class="section-pad">
+      <div class="container">
+        <div class="reveal" style="max-width: 46rem">
+          <p class="section-label">
+            <span class="slash" aria-hidden="true">/</span>
+            <span data-i18n="security.label">Web Security</span>
+          </p>
+          <h2 class="heading-xl" data-i18n="security.heading">Basics I apply to every project</h2>
+          <p class="mt-4 lh-lg" data-i18n="security.intro">Core habits that keep users and data safe.</p>
+        </div>
+
+        <!-- security cards (rendered from js/data.js) -->
+        <div class="row g-4 mt-4" id="securityGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============================= Projects =========================== -->
+    <section id="projects" class="section-pad" style="border-top: 1px solid var(--line)">
+      <div class="container">
+        <div class="row align-items-end justify-content-between g-4 reveal">
+          <div class="col-md-7" style="max-width: 42rem">
+            <p class="section-label">
+              <span class="slash" aria-hidden="true">/</span>
+              <span data-i18n="projects.label">Projects</span>
+            </p>
+            <h2 class="heading-xl" data-i18n="projects.heading">Things I have built</h2>
+          </div>
+          <div class="col-md-5">
+            <p class="mb-0 lh-lg" style="font-size: 0.92rem" data-i18n="projects.intro">
+              Real projects from my GitHub.
+            </p>
+          </div>
+        </div>
+
+        <!-- project cards (rendered from js/data.js) -->
+        <div class="row g-4 mt-4" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============================== Contact =========================== -->
+    <section id="contact" class="section-pad" style="border-top: 1px solid var(--line)">
+      <div class="container">
+        <div class="row g-4 g-lg-5">
+          <!-- details -->
+          <div class="col-lg-6 reveal">
+            <p class="section-label">
+              <span class="slash" aria-hidden="true">/</span>
+              <span data-i18n="contact.label">Contact</span>
+            </p>
+            <h2 class="heading-xl" data-i18n="contact.heading">Let us build something together</h2>
+            <p class="mt-4 lh-lg" data-i18n="contact.intro">Send me a message, I will get back to you.</p>
+
+            <div class="row g-3 mt-2" id="contactDetails"></div>
+
+            <p class="d-flex align-items-center gap-2 mt-4 mb-0" style="font-size: 0.9rem">
+              <i class="bi bi-geo-alt" style="color: var(--accent)" aria-hidden="true"></i>
+              <span data-i18n="contact.location">Meknès, Morocco</span>
+            </p>
+          </div>
+
+          <!-- form -->
+          <div class="col-lg-6 reveal" style="transition-delay: 120ms">
+            <div class="card-custom contact-form-card">
+              <!--
+                Netlify Forms: static-friendly contact form (no backend needed).
+                - data-netlify + the hidden form-name field register the form
+                - the honeypot field (bot-field) catches spam bots
+                - main.js validates client-side and submits with fetch()
+                To use Formspree instead, replace the form attributes and the
+                fetch() URL in js/main.js with your Formspree endpoint.
+              -->
+              <form
+                id="contactForm"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                novalidate
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <!-- honeypot: hidden from humans, filled by bots -->
+                <p class="d-none" aria-hidden="true">
+                  <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                </p>
+
+                <div class="mb-3">
+                  <label class="form-label-custom" for="contactName" data-i18n="contact.form.name">Name</label>
+                  <input
+                    class="form-control-custom"
+                    type="text"
+                    id="contactName"
+                    name="name"
+                    autocomplete="name"
+                    required
+                    placeholder="Your full name"
+                    data-i18n-ph="contact.form.namePlaceholder"
+                    aria-describedby="nameError"
+                  />
+                  <p class="field-error d-none" id="nameError" role="alert"></p>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label-custom" for="contactEmail" data-i18n="contact.form.email">Email</label>
+                  <input
+                    class="form-control-custom"
+                    type="email"
+                    id="contactEmail"
+                    name="email"
+                    autocomplete="email"
+                    required
+                    placeholder="you@example.com"
+                    data-i18n-ph="contact.form.emailPlaceholder"
+                    aria-describedby="emailError"
+                  />
+                  <p class="field-error d-none" id="emailError" role="alert"></p>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label-custom" for="contactMessage" data-i18n="contact.form.message">Message</label>
+                  <textarea
+                    class="form-control-custom"
+                    id="contactMessage"
+                    name="message"
+                    rows="5"
+                    required
+                    placeholder="Tell me about your project or internship..."
+                    data-i18n-ph="contact.form.messagePlaceholder"
+                    aria-describedby="messageError"
+                  ></textarea>
+                  <p class="field-error d-none" id="messageError" role="alert"></p>
+                </div>
+
+                <button class="btn-accent w-100" type="submit" id="contactSubmit">
+                  <i class="bi bi-send" aria-hidden="true"></i>
+                  <span data-i18n="contact.form.submit">Send message</span>
+                </button>
+
+                <!-- success / error feedback -->
+                <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+              </form>
+
+              <p class="mt-4 mb-0" style="font-size: 0.8rem; color: var(--muted)">
+                <span data-i18n="contact.form.preferSocial">Prefer social media?</span>
+                <a href="https://www.linkedin.com/in/anouar-laraje-62bb43443/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <span data-i18n="contact.form.or">or</span>
+                <a href="https://github.com/anouarlaraje-code" target="_blank" rel="noopener noreferrer">GitHub</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== Footer ============================= -->
+  <footer class="site-footer">
+    <div class="container py-5">
+      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-4">
+        <a class="navbar-brand-custom" href="#home" aria-label="Back to the top">
+          <span class="brand-badge" aria-hidden="true">&lt;/&gt;</span>
+          <span>
+            <span class="d-block" style="color: var(--heading); font-weight: 600">Anouar Laraje</span>
+            <span class="footer-role" data-i18n="footer.role">Full-Stack Web Developer</span>
+          </span>
+        </a>
+
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="#home" data-i18n="nav.home">Home</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- social buttons with real links (rendered from js/data.js) -->
+        <ul class="list-unstyled d-flex gap-3 mb-0" id="footerSocials"></ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="mb-0" data-i18n="footer.rights">© 2026 Anouar Laraje — All rights reserved.</p>
+        <p class="mb-0">
+          <span data-i18n="footer.builtWith">Built with</span>
+          <a href="https://getbootstrap.com" target="_blank" rel="noopener noreferrer">Bootstrap 5</a>
+          + <span>HTML</span> + <span>CSS</span> + <span>JavaScript</span>
+        </p>
+        <p class="mb-0">
+          <i class="bi bi-envelope" aria-hidden="true"></i>
+          <a href="mailto:anouarlaraje@gmail.com">anouarlaraje@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (collapse, dropdowns) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <!-- Site scripts: data -> translations -> behaviour -->
+  <script src="js/data.js" defer></script>
+  <script src="js/lang/en.js" defer></script>
+  <script src="js/lang/fr.js" defer></script>
+  <script src="js/lang/ar.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
 </html>

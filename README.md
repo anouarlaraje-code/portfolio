@@ -1,110 +1,89 @@
 # Anouar Laraje - Portfolio
 
-A modern, responsive, dark/light-mode personal portfolio for **Anouar Laraje**, Full-Stack
-Web Developer, in **English, French and Arabic**. Built with **React (Vite)** and
-**Tailwind CSS**.
+A modern, responsive personal portfolio for **Anouar Laraje**, Full-Stack Web Developer -
+in **English, French and Arabic** (with RTL for Arabic) and **light/dark mode**.
 
-## Requirements
+Built with **plain HTML5, CSS3, vanilla JavaScript and Bootstrap 5 (via CDN)**.
+No Next.js, no Node.js, no build step, no API keys - it is a fully static site.
 
-- Node.js 18+ (node -v)
-- npm 9+
+## Run it
 
-## Install and run
-
-```bash
-cd portfolio
-npm install
-npm run dev      # dev server, http://localhost:5173
-```
-
-Build and preview the production bundle:
+Just open `index.html` in your browser, or serve the folder with any static server:
 
 ```bash
-npm run build
-npm run preview
+# Python
+python -m http.server 8000
+# or simply double-click index.html
 ```
 
 ## What is inside
 
-- Single page with smooth-scroll navbar anchors: Home, About, Skills, Projects, Contact
-- Dark theme (#0f1720 / #1a2230) with one blue accent (#1a63f0)
-- Light mode: switch in the navbar (sun/moon). The choice is saved in
-  localStorage and the system preference is used on the first visit
-- Colours are theme tokens (`bg`, `surface`, `line`, `heading`, `body`, `muted`, `accent`)
-  defined as CSS variables in `src/index.css` - both themes edit only that one file
-- Three languages: English, French and Arabic - switch with the globe button in the
-  navbar. The choice is saved in localStorage, and first-time visitors get the language
-  matching their browser (fr / ar / en)
-- Arabic switches the whole layout to RTL (`html[dir="rtl"]` is set automatically),
-  arrows flip, and letter-spacing is disabled so the Arabic script stays properly joined
-- Space Grotesk + IBM Plex Sans Arabic from Google Fonts (browsers pick per glyph:
-  Latin in Space Grotesk, Arabic in IBM Plex Sans Arabic)
-- Fade-in-on-scroll animations (IntersectionObserver + CSS, respects prefers-reduced-motion)
-- Fully responsive: hamburger menu on mobile, grids step 1 -> 2 -> 4 columns
-- Contact form with front-end validation (no backend needed)
-- lucide-react icons, semantic HTML, alt text and aria-labels throughout
+- Single page with smooth-scroll navbar: Home, About, Skills, Projects, Contact
+- Bootstrap 5.3 + Bootstrap Icons, loaded from the CDN (grid, navbar collapse, dropdowns, forms)
+- Custom design tokens on `:root` - dark theme (#0f1720 / #1a2230) and light mode,
+  switched from the navbar; the choice is saved in localStorage
+- Three languages with a globe switcher (English / Français / العربية). First-time
+  visitors get their browser language; Arabic flips the layout to **RTL** and swaps
+  Bootstrap for its official RTL stylesheet
+- **Web Security** section (HTTPS/TLS, XSS, CSRF, SQL injection, secure authentication,
+  input validation, secrets out of git)
+- Real GitHub projects with "View on GitHub" links, real LinkedIn/GitHub social buttons
+- Contact form via **Netlify Forms** (honeypot + client-side validation + success/error
+  messages) - no backend of our own
+- Fade-in-on-scroll animations (IntersectionObserver, respects `prefers-reduced-motion`)
+- Accessible: skip link, labels, alt texts, aria attributes, visible focus
 
 ## File tree
 
 ```
 portfolio/
-  index.html
-  package.json
-  postcss.config.js
-  tailwind.config.js
-  vite.config.js
-  public/
-    assets/
-      favicon.svg
-      profile.jpeg                 <- your photo
-      story.svg
-      project-*.svg                <- 5 project previews
-  src/
-    App.jsx
-    index.css
-    main.jsx
-    components/
-      Navbar.jsx  Hero.jsx  About.jsx  Story.jsx  Internship.jsx
-      Skills.jsx  Education.jsx  Projects.jsx  Contact.jsx  Footer.jsx
-      LanguageSwitcher.jsx      <- globe menu (English / Français / العربية)
-      Reveal.jsx                <- fade-in-on-scroll wrapper
-    data/
-      personal.js               <- name, contact details, social links, photo
-      nav.js                    <- navbar links
-      projects.js               <- the 5 projects (ids, tags, image, urls)
-      skills.js                 <- skill groups and languages
-    hooks/
-      useActiveSection.js       <- highlights the current navbar link
-      useLockBodyScroll.js      <- locks scroll while the mobile menu is open
-      useTheme.js               <- light/dark state + localStorage
-    i18n/
-      en.js fr.js ar.js         <- every user-facing string, one file per language
-      LanguageContext.jsx       <- language provider + t() helper
+  index.html               <- the whole page (semantic sections + data-i18n keys)
+  css/
+    style.css              <- design tokens, dark/light themes, all custom styles
+  js/
+    data.js                <- personal info, links, skills, security items, projects
+    i18n.js                <- translation core: t(), setLang(), RTL handling
+    main.js                <- theme, language, navbar, animations, form
+    lang/
+      en.js fr.js ar.js    <- every user-facing string, one file per language
+  assets/
+    favicon.svg
+    profile.jpeg           <- your photo
+    story.svg
 ```
 
 ## Editing your content
 
-Every user-facing sentence lives in `src/i18n/` - one file per language, all with the
-same keys:
+- **Personal details, links, skills, projects** -> `js/data.js`
+  (email, phone, GitHub/LinkedIn URLs, skill columns, security cards, project list).
+- **Any sentence in any language** -> `js/lang/en.js`, `fr.js`, `ar.js` - all files share
+  the same keys. To add a language, copy `en.js`, translate it, and register it in
+  `js/i18n.js` (the `LANGUAGES` array).
+- **Colours / spacing** -> `css/style.css` (the `:root` and `html[data-theme="light"]`
+  token blocks at the top).
+- To swap the photo, replace `assets/profile.jpeg`.
 
-- `en.js` / `fr.js` / `ar.js` - nav labels, hero text, bio, stats, story, internship
-  note, skill group titles, education, project titles + descriptions, contact form
-  labels/validation messages, footer. To add a language, copy `en.js`, translate it, and
-  register it in `LanguageContext.jsx` (the `LANGUAGES` list).
-- Placeholders like `{title}` or `{email}` in a string are filled in by `t('key', { title })`.
+## Contact form (how messages reach you)
 
-Language-neutral data stays in `src/data/`:
+The form uses **Netlify Forms** (`data-netlify="true"` + hidden `form-name` field +
+`bot-field` honeypot). Nothing to configure in the code:
 
-- `personal.js` - name, email, phone, social URLs, photo path, education entry. Change
-  `github` and `linkedin` from `#` to your real profiles.
-- `projects.js` - ids, tech tags, preview image and `github` / `live` URLs of the 5
-  projects. Add or remove objects freely; the titles/descriptions are in `src/i18n/`.
-- `skills.js` - the four skill columns (group ids map to `skills.groups.*` in the
-  translations) and the languages list.
-- `nav.js` - the navbar anchors (each `href` must match a section `id` in `App.jsx`, and
-  each `id` maps to `nav.*` in the translations).
+1. Deploy the site to **Netlify** (drag-and-drop or connect the GitHub repo).
+2. Netlify auto-detects the form in `index.html` and forwards submissions to the
+   account e-mail (`anouarlaraje@gmail.com`).
+3. In the Netlify dashboard: *Site settings > Forms > Form notifications* to confirm
+   the notification e-mail.
 
-To swap the hero photo, drop a file in `public/assets/` and update `photo` in
-`personal.js`. The contact form has no server: on a valid submit it opens the visitor's
-email app with the message pre-filled to `anwarlaraje3@gmail.com`. To use a real form
-backend, replace the `handleSubmit` logic in `components/Contact.jsx`.
+Prefer **Formspree** instead? Create a form at formspree.io, then in `index.html`
+remove the `data-netlify` / hidden `form-name` fields and set the form's `action` to
+your Formspree URL; in `js/main.js` change the `fetch('/')` URL to that same endpoint.
+
+> Deployed anywhere else (GitHub Pages, etc.)? The form will show its error message
+> because nothing processes it there - keep a `mailto:` link as fallback (already in
+> the footer and contact section).
+
+## Quality checklist
+
+- No secrets or API keys anywhere (the weather project's key lives only in its own repo)
+- `rel="noopener noreferrer"` on every external link
+- Works from `file://` as well as from any static host

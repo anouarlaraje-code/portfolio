@@ -1,9 +1,12 @@
-node_modules
-dist
-dist-ssr
-*.local
+# OS / editor
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
+
+# logs
 npm-debug.log*
 yarn-error.log*
+
+# local tooling (not part of the site)
+node_modules
+*.local
