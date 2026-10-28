@@ -1,0 +1,14 @@
+# netlify.toml - deployment configuration for this static site.
+#
+# The site is plain HTML/CSS/JavaScript: there is no build step and no
+# package.json. This file overrides the old build settings that were
+# left in the Netlify UI (npm run build -> dist).
+
+[build]
+  # Nothing to build - the files in the repo are ready to publish.
+  command = "echo 'Static site - no build step'"
+  # Publish the repository root (index.html lives here).
+  publish = "."
+
+# Netlify Forms picks up the form in index.html automatically
+# (data-netlify="true") - no extra configuration needed.

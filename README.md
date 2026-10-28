@@ -69,6 +69,9 @@ The form uses **Netlify Forms** (`data-netlify="true"` + hidden `form-name` fiel
 `bot-field` honeypot). Nothing to configure in the code:
 
 1. Deploy the site to **Netlify** (drag-and-drop or connect the GitHub repo).
+   The included `netlify.toml` already sets the right build settings for this
+   static site (no build command, publish the repo root) - no Base directory or
+   build command to fill in the UI.
 2. Netlify auto-detects the form in `index.html` and forwards submissions to the
    account e-mail (`anouarlaraje@gmail.com`).
 3. In the Netlify dashboard: *Site settings > Forms > Form notifications* to confirm
